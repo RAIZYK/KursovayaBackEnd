@@ -1,0 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+namespace SmartphoneStore.Api.DTOs;
+public record RegisterRequest([Required, MaxLength(120)] string FullName, [Required, EmailAddress, MaxLength(180)] string Email, [Required, MinLength(8), MaxLength(100)] string Password);
+public record LoginRequest([Required, EmailAddress] string Email, [Required] string Password);
+public record UserDto(int Id, string FullName, string Email, string Role);
+public record AuthResponse(string Token, UserDto User);
+public record ProductRequest([Required, MaxLength(160)] string Name, [Required, MaxLength(100)] string Brand, [MaxLength(3000)] string Description, [Range(0, 100000000)] decimal Price, [Range(0, 100000)] int Stock, [MaxLength(500)] string ImageUrl, [Range(1, int.MaxValue)] int CategoryId);
+public record ReviewRequest([Range(1, 5)] int Rating, [Required, MinLength(2), MaxLength(1200)] string Comment);
+public record OrderLineRequest([Range(1, int.MaxValue)] int ProductId, [Range(1, 20)] int Quantity);
+public record OrderRequest([Required, MinLength(1)] List<OrderLineRequest> Items);
+public record UpdateOrderStatusRequest([Required] string Status);
